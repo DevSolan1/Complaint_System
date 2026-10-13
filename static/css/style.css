@@ -1,0 +1,74 @@
+:root {
+    --cd-ink: #1c2430;
+    --cd-slate: #33414f;
+    --cd-mist: #eef1f4;
+    --cd-accent: #c8792a;
+    --cd-accent-dark: #a85f1c;
+    --cd-good: #2f6b4f;
+    --cd-warn: #b4531d;
+    --cd-danger: #a5342a;
+    font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: var(--cd-mist);
+    color: var(--cd-ink);
+}
+
+.cd-navbar {
+    background-color: var(--cd-ink);
+}
+
+.cd-btn-accent {
+    background-color: var(--cd-accent);
+    color: #fff;
+    border: none;
+}
+.cd-btn-accent:hover { background-color: var(--cd-accent-dark); color: #fff; }
+
+.cd-role-badge {
+    background-color: var(--cd-slate);
+    color: #fff;
+    font-weight: 500;
+    padding: 0.35em 0.65em;
+    border-radius: 999px;
+}
+
+.cd-card {
+    background: #fff;
+    border: 1px solid #dde2e7;
+    border-radius: 10px;
+}
+
+.cd-stat {
+    background: #fff;
+    border-left: 4px solid var(--cd-accent);
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+}
+.cd-stat .cd-stat-value { font-size: 1.9rem; font-weight: 700; color: var(--cd-ink); }
+.cd-stat .cd-stat-label { color: #667; font-size: 0.85rem; text-transform: uppercase; letter-spacing: .04em; }
+
+.cd-status-open { color: var(--cd-warn); font-weight: 600; }
+.cd-status-in_progress { color: #2a5da5; font-weight: 600; }
+.cd-status-pending { color: #8a6d1c; font-weight: 600; }
+.cd-status-resolved,
+.cd-status-closed { color: var(--cd-good); font-weight: 600; }
+.cd-status-rejected { color: var(--cd-danger); font-weight: 600; }
+
+.cd-priority-critical { color: #fff; background: var(--cd-danger); padding: .1em .5em; border-radius: 4px; font-size: .8rem; }
+.cd-priority-high { color: #fff; background: var(--cd-warn); padding: .1em .5em; border-radius: 4px; font-size: .8rem; }
+.cd-priority-medium { color: #333; background: #e7dcc4; padding: .1em .5em; border-radius: 4px; font-size: .8rem; }
+.cd-priority-low { color: #333; background: #dde5e0; padding: .1em .5em; border-radius: 4px; font-size: .8rem; }
+
+.cd-internal-note {
+    background: #fdf3e3;
+    border-left: 3px solid var(--cd-accent);
+}
+
+.hero-band {
+    background: linear-gradient(135deg, var(--cd-ink), var(--cd-slate));
+    color: #fff;
+    border-radius: 12px;
+    padding: 3rem 2rem;
+}

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Agent Dashboard{% endblock %}
+{% block content %}
+<h3 class="mb-4">Your assigned complaints</h3>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-3">
+        <div class="cd-stat"><div class="cd-stat-value">{{ total }}</div><div class="cd-stat-label">Total assigned</div></div>
+    </div>
+    <div class="col-md-3">
+        <div class="cd-stat"><div class="cd-stat-value">{{ open_count }}</div><div class="cd-stat-label">Open</div></div>
+    </div>
+    <div class="col-md-3">
+        <div class="cd-stat"><div class="cd-stat-value">{{ in_progress_count }}</div><div class="cd-stat-label">In progress</div></div>
+    </div>
+    <div class="col-md-3">
+        <div class="cd-stat"><div class="cd-stat-value">{{ pending_count }}</div><div class="cd-stat-label">Awaiting customer</div></div>
+    </div>
+</div>
+
+<div class="cd-card p-4">
+    <table class="table table-hover">
+        <thead><tr><th>Reference</th><th>Title</th><th>Priority</th><th>Status</th><th>Customer</th></tr></thead>
+        <tbody>
+        {% for c in complaints %}
+            <tr onclick="window.location='{{ c.get_absolute_url }}'" style="cursor:pointer">
+                <td>{{ c.reference_number }}</td>
+                <td>{{ c.title }}</td>
+                <td><span class="cd-priority-{{ c.priority }}">{{ c.get_priority_display }}</span></td>
+                <td><span class="cd-status-{{ c.status }}">{{ c.get_status_display }}</span></td>
+                <td>{{ c.customer }}</td>
+            </tr>
+        {% empty %}
+            <tr><td colspan="5" class="text-center text-muted py-3">No complaints assigned to you yet.</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

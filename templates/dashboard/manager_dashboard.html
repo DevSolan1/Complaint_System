@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}Manager Dashboard{% endblock %}
+{% block content %}
+<h3 class="mb-4">Organization overview</h3>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-3">
+        <div class="cd-stat"><div class="cd-stat-value">{{ total }}</div><div class="cd-stat-label">Total complaints</div></div>
+    </div>
+    <div class="col-md-3">
+        <div class="cd-stat"><div class="cd-stat-value">{{ open_count }}</div><div class="cd-stat-label">Open</div></div>
+    </div>
+    <div class="col-md-3">
+        <div class="cd-stat"><div class="cd-stat-value">{{ in_progress_count }}</div><div class="cd-stat-label">In progress</div></div>
+    </div>
+    <div class="col-md-3">
+        <div class="cd-stat"><div class="cd-stat-value">{{ resolved_count }}</div><div class="cd-stat-label">Resolved</div></div>
+    </div>
+</div>
+
+<div class="row g-4 mb-4">
+    <div class="col-md-4">
+        <div class="cd-card p-4">
+            <h6 class="text-muted">Average resolution time</h6>
+            <p class="fs-4 fw-semibold mb-0">
+                {% if avg_resolution %}{{ avg_resolution }}{% else %}Not enough data yet{% endif %}
+            </p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="cd-card p-4">
+            <h6 class="text-muted">By category</h6>
+            <ul class="list-unstyled mb-0">
+                {% for row in by_category %}
+                    <li class="d-flex justify-content-between"><span>{{ row.category__name|default:"Uncategorized" }}</span><strong>{{ row.total }}</strong></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="cd-card p-4">
+            <h6 class="text-muted">By priority</h6>
+            <ul class="list-unstyled mb-0">
+                {% for row in by_priority %}
+                    <li class="d-flex justify-content-between"><span class="cd-priority-{{ row.priority }}">{{ row.priority|capfirst }}</span><strong>{{ row.total }}</strong></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="cd-card p-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="mb-0">Recent complaints</h5>
+        <a href="{% url 'complaints:list' %}" class="btn btn-sm btn-outline-dark">View all</a>
+    </div>
+    <table class="table table-hover">
+        <thead><tr><th>Reference</th><th>Title</th><th>Priority</th><th>Status</th><th>Assigned to</th></tr></thead>
+        <tbody>
+        {% for c in recent_complaints %}
+            <tr onclick="window.location='{{ c.get_absolute_url }}'" style="cursor:pointer">
+                <td>{{ c.reference_number }}</td>
+                <td>{{ c.title }}</td>
+                <td><span class="cd-priority-{{ c.priority }}">{{ c.get_priority_display }}</span></td>
+                <td><span class="cd-status-{{ c.status }}">{{ c.get_status_display }}</span></td>
+                <td>{{ c.assigned_to|default:"Unassigned" }}</td>
+            </tr>
+        {% empty %}
+            <tr><td colspan="5" class="text-center text-muted py-3">No complaints yet.</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

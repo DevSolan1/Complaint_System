@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Complaint Desk — Home{% endblock %}
+{% block content %}
+<div class="hero-band mb-4">
+    <h1 class="fw-bold">Get complaints resolved, not lost.</h1>
+    <p class="lead mb-4">Submit, track, and manage complaints from one place — for customers, support agents, and managers alike.</p>
+    {% if user.is_authenticated %}
+        <a href="{% url 'dashboard:home' %}" class="btn btn-light btn-lg">Go to your dashboard</a>
+    {% else %}
+        <a href="{% url 'accounts:register' %}" class="btn cd-btn-accent btn-lg me-2">Create an account</a>
+        <a href="{% url 'accounts:login' %}" class="btn btn-outline-light btn-lg">Log in</a>
+    {% endif %}
+</div>
+
+<div class="row g-4">
+    <div class="col-md-4">
+        <div class="cd-card p-4 h-100">
+            <i class="bi bi-pencil-square fs-2 text-secondary"></i>
+            <h5 class="mt-2">Submit a complaint</h5>
+            <p class="text-muted">Describe your issue, attach evidence, and get a reference number instantly.</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="cd-card p-4 h-100">
+            <i class="bi bi-clock-history fs-2 text-secondary"></i>
+            <h5 class="mt-2">Track progress</h5>
+            <p class="text-muted">Follow status changes in real time, from Open through Resolved.</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="cd-card p-4 h-100">
+            <i class="bi bi-bar-chart-line fs-2 text-secondary"></i>
+            <h5 class="mt-2">Resolve faster</h5>
+            <p class="text-muted">Managers assign, agents act, and everyone sees the same source of truth.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

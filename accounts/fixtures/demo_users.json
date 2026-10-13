@@ -1,0 +1,89 @@
+[
+  {
+    "model": "accounts.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$MOHpeCZL4O1Z$WUD4Y64VEu429Z+lGHl2TQdGjWrdEgcpPhhYZ9XLQjk=",
+      "is_superuser": true,
+      "is_staff": true,
+      "is_active": true,
+      "username": "admin",
+      "first_name": "System",
+      "last_name": "Admin",
+      "email": "admin@example.com",
+      "role": "manager",
+      "department": "IT"
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$33pBgPCRElIK$x7gis9AMub/WyRJZPdrZJXafrpMl9Y03gX/jsrUvBzo=",
+      "is_staff": true,
+      "is_active": true,
+      "username": "manager1",
+      "first_name": "Maria",
+      "last_name": "Manager",
+      "email": "manager1@example.com",
+      "role": "manager",
+      "department": "Customer Operations"
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$d6vd8wqU6zJJ$4p0BLmHj9s7KEB+tLefoHiTfSNzSmPVh6SZEXliaYmo=",
+      "is_staff": true,
+      "is_active": true,
+      "username": "agent1",
+      "first_name": "Alan",
+      "last_name": "Agent",
+      "email": "agent1@example.com",
+      "role": "agent",
+      "department": "Technical Support"
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 4,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$fnNqK1RSUyLy$u5gn5yrUK/lcS9uhVfq2nDqplR/sCRDkczyUJ4XVgmI=",
+      "is_staff": true,
+      "is_active": true,
+      "username": "agent2",
+      "first_name": "Amy",
+      "last_name": "Agent",
+      "email": "agent2@example.com",
+      "role": "agent",
+      "department": "Billing Support"
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 5,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$eDwROYeRBZZc$uxsKP7+vPkAFneG1eH6QssAJsDdklRyzoff64FsnJ90=",
+      "is_active": true,
+      "username": "customer1",
+      "first_name": "Carla",
+      "last_name": "Customer",
+      "email": "customer1@example.com",
+      "role": "customer"
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 6,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$OeXZNyp5szTD$8R+73hJzlY/3gvUnPjkwSxHkCUysO1XLNljUrhWf0vw=",
+      "is_active": true,
+      "username": "customer2",
+      "first_name": "Carlos",
+      "last_name": "Cliente",
+      "email": "customer2@example.com",
+      "role": "customer"
+    }
+  }
+]

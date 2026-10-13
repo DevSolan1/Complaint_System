@@ -1,0 +1,38 @@
+[
+  {
+    "model": "complaints.category",
+    "pk": 1,
+    "fields": {
+      "name": "Billing",
+      "slug": "billing",
+      "description": "Issues related to invoices, charges, and payments."
+    }
+  },
+  {
+    "model": "complaints.category",
+    "pk": 2,
+    "fields": {
+      "name": "Technical",
+      "slug": "technical",
+      "description": "Bugs, outages, and other technical issues."
+    }
+  },
+  {
+    "model": "complaints.category",
+    "pk": 3,
+    "fields": {
+      "name": "Service",
+      "slug": "service",
+      "description": "Customer service and support experience complaints."
+    }
+  },
+  {
+    "model": "complaints.category",
+    "pk": 4,
+    "fields": {
+      "name": "Product",
+      "slug": "product",
+      "description": "Complaints about product quality or defects."
+    }
+  }
+]

@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}{{ complaint.reference_number }}{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-start mb-3">
+    <div>
+        <h3 class="mb-0">{{ complaint.title }}</h3>
+        <p class="text-muted mb-0">{{ complaint.reference_number }} &middot; {{ complaint.category }} &middot;
+            <span class="cd-priority-{{ complaint.priority }}">{{ complaint.get_priority_display }}</span>
+        </p>
+    </div>
+    <div class="text-end">
+        <span class="cd-status-{{ complaint.status }} fs-5">{{ complaint.get_status_display }}</span>
+        {% if is_staff_viewer %}
+            <div><a href="{% url 'complaints:update' complaint.reference_number %}" class="btn btn-sm cd-btn-accent mt-2">Update status / assign</a></div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-8">
+        <div class="cd-card p-4 mb-4">
+            <h6 class="text-muted">Description</h6>
+            <p>{{ complaint.description|linebreaks }}</p>
+            {% if complaint.attachment %}
+                <a href="{{ complaint.attachment.url }}" target="_blank" class="btn btn-sm btn-outline-secondary">
+                    <i class="bi bi-paperclip"></i> View attachment
+                </a>
+            {% endif %}
+        </div>
+
+        <div class="cd-card p-4">
+            <h6 class="text-muted mb-3">Conversation</h6>
+            {% for comment in comments %}
+                <div class="mb-3 p-3 rounded {% if comment.is_internal_note %}cd-internal-note{% else %}bg-light{% endif %}">
+                    <div class="d-flex justify-content-between">
+                        <strong>{{ comment.author }}</strong>
+                        <small class="text-muted">{{ comment.created_at|date:"M d, Y H:i" }}</small>
+                    </div>
+                    {% if comment.is_internal_note %}<span class="badge bg-warning text-dark mb-1">Internal note</span>{% endif %}
+                    <p class="mb-0">{{ comment.text|linebreaks }}</p>
+                </div>
+            {% empty %}
+                <p class="text-muted">No comments yet.</p>
+            {% endfor %}
+
+            <form method="post" class="mt-3">
+                {% csrf_token %}
+                {{ comment_form.text }}
+                {% if comment_form.is_internal_note %}
+                    <div class="form-check mt-2">
+                        {{ comment_form.is_internal_note }}
+                        <label class="form-check-label" for="{{ comment_form.is_internal_note.id_for_label }}">Internal note (staff only)</label>
+                    </div>
+                {% endif %}
+                <button type="submit" class="btn cd-btn-accent mt-2">Post comment</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="cd-card p-4 mb-4">
+            <h6 class="text-muted">Details</h6>
+            <p class="mb-1"><strong>Customer:</strong> {{ complaint.customer }}</p>
+            <p class="mb-1"><strong>Assigned to:</strong> {{ complaint.assigned_to|default:"Unassigned" }}</p>
+            <p class="mb-1"><strong>Submitted:</strong> {{ complaint.created_at|date:"M d, Y H:i" }}</p>
+            <p class="mb-1"><strong>Last updated:</strong> {{ complaint.updated_at|date:"M d, Y H:i" }}</p>
+            {% if complaint.resolved_at %}<p class="mb-0"><strong>Resolved:</strong> {{ complaint.resolved_at|date:"M d, Y H:i" }}</p>{% endif %}
+        </div>
+
+        <div class="cd-card p-4">
+            <h6 class="text-muted">Status timeline</h6>
+            <ul class="list-unstyled mb-0">
+                {% for entry in status_history %}
+                    <li class="mb-2">
+                        <small class="text-muted">{{ entry.changed_at|date:"M d, Y H:i" }}</small><br>
+                        {{ entry.old_status|default:"—" }} → <strong>{{ entry.new_status }}</strong>
+                        <small class="text-muted">by {{ entry.changed_by }}</small>
+                    </li>
+                {% empty %}
+                    <li class="text-muted">No status changes yet.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Complaint Desk{% endblock %}</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark cd-navbar">
+    <div class="container">
+        <a class="navbar-brand fw-semibold" href="{% url 'home' %}"><i class="bi bi-inbox-fill me-2"></i>Complaint Desk</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMenu">
+            <ul class="navbar-nav ms-auto align-items-lg-center">
+                {% if user.is_authenticated %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'dashboard:home' %}">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'complaints:list' %}">Complaints</a></li>
+                    {% if user.is_customer %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'complaints:create' %}">New Complaint</a></li>
+                    {% endif %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'admin:index' %}">Admin</a></li>
+                    <li class="nav-item ms-lg-2">
+                        <span class="badge cd-role-badge">{{ user.get_role_display }}</span>
+                    </li>
+                    <li class="nav-item ms-lg-2">
+                        <form method="post" action="{% url 'accounts:logout' %}" class="d-inline">
+                            {% csrf_token %}
+                            <button class="btn btn-sm btn-outline-light" type="submit">Log out</button>
+                        </form>
+                    </li>
+                {% else %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'accounts:login' %}">Log in</a></li>
+                    <li class="nav-item"><a class="btn btn-sm cd-btn-accent ms-lg-2" href="{% url 'accounts:register' %}">Register</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<main class="container py-4">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% block content %}{% endblock %}
+</main>
+
+<footer class="text-center text-muted py-4 small">
+    Complaint Management System &middot; internal tool
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
