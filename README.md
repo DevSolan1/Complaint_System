@@ -3,6 +3,14 @@
 A Django 5 web application for submitting, tracking, and resolving customer
 complaints, with role-based access for Customers, Support Agents, and Managers.
 
+## Screenshots
+
+![Landing Page](screenshots/landing.png)
+![Dashboard](screenshots/dashboard.png)
+![Complaint List](screenshots/complaint_list.png)
+![Complaint Detail](screenshots/complaint_detail.png)
+![New Complaint](screenshots/new_complaint.png)
+
 ## Features
 
 - Role-based accounts (Customer / Agent / Manager) on a custom `User` model
