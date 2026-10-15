@@ -2,6 +2,15 @@ from .base import *  # noqa: F401,F403
 
 DEBUG = False
 
+# Allow Railway's auto-generated domain alongside any explicitly listed hosts
+ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=[]) + [  # noqa: F405
+    ".up.railway.app",
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://*.up.railway.app",
+] + env.list("DJANGO_CSRF_TRUSTED_ORIGINS", default=[])  # noqa: F405
+
 DATABASES = {
     "default": env.db("DATABASE_URL", default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}")  # noqa: F405
 }
