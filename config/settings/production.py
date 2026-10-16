@@ -2,13 +2,15 @@ from .base import *  # noqa: F401,F403
 
 DEBUG = False
 
-# Allow Railway's auto-generated domain alongside any explicitly listed hosts
+# Allow Railway and Render auto-generated domains
 ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=[]) + [  # noqa: F405
     ".up.railway.app",
+    ".onrender.com",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "https://*.up.railway.app",
+    "https://*.onrender.com",
 ] + env.list("DJANGO_CSRF_TRUSTED_ORIGINS", default=[])  # noqa: F405
 
 DATABASES = {
